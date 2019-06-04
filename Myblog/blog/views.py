@@ -15,6 +15,8 @@ def index(request):
 def detail(request,pk):
     #如果文章不存在，则返回404错误
     post=get_object_or_404(Post,pk=pk)
+    #阅读量+1
+    post.increase_views()
     post.body=markdown.markdown(post.body,
                                 extensions=[
                                     'markdown.extensions.extra',
