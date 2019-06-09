@@ -1,6 +1,8 @@
 #coding:utf-8
-from ..models import Post,Category
+from ..models import Post,Category,Tag
 from django import template
+from django.db.models.aggregates import Count
+from blog.models import Category
 
 register=template.Library()
 
@@ -23,4 +25,11 @@ def get_categories():
     '''
     返回文章分类
     '''
-    return Category.objects.all()
+    return Category.objects.annotate(num_posts=Count('post')).filter(num_posts__gt=0)
+
+@register.simple_tag
+def get_tags():
+    '''
+    返回标签
+    '''
+    return Tag.objects.annotate(num_posts=Count('post')).filter(num_posts__gt=0)
