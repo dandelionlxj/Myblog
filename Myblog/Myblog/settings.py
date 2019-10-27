@@ -25,7 +25,7 @@ SECRET_KEY = 'rx5dlei_uf(4jesleue(@d5p55(n=)_by(bviqa^h9#20vl23&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','.zmrenwu.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -122,3 +122,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'ststic')
+
+# Heroku设置
+if os.getcwd()=='/app':
+    import dj_database_url
+    DATABASES={
+        'default':dj_database_url.config(default='postgres://localhost')
+    }
+    # 让request.is_secure()承认X-Forwarded-Proto头
+    SECURE_PROXY_SSL_HRADER = ('HTTP_X_FORWARDED_PROTO','https')
+
+    # 支持所有主机头(host header)
+    ALLOWED_HOSTS=['*']
+
+    # 静态资产配置
+    BASE_DIR=os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT='staticfiles'
+    STATIC_DIRS=(
+        os.path.join(BASE_DIR,'static'),
+    )
