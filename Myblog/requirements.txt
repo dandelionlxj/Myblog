@@ -22,7 +22,7 @@ Pillow==5.0.0
 prompt-toolkit==1.0.15
 protobuf==3.6.1
 pygame==1.9.2
-Pygments==2.2.0
+Pygments==2.7.4
 pylint==2.1.1
 PyMySQL==0.9.3
 Pypubsub==4.0.0
